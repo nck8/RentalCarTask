@@ -1,7 +1,7 @@
 # RentalCarTask
 
 ## How to run the application.
-* Download this from [json-simple](http://www.java2s.com/Code/Jar/j/Downloadjsonsimple11jar.htmhttp://localhost:8090/file "json-simple JAR"). 
+* Download this from [json-simple](http://www.java2s.com/Code/Jar/j/Downloadjsonsimple11jar.htm "json-simple JAR"). 
 * Add it to the build path to run console Application.
 * Change the path of the file in **Tsk1.java**, **Service.java** and **RentalCarsTechnicalTestApplicationTests.java** file.
 * Go to the location of the project on terminal and enter **gradle bootrun** . 
