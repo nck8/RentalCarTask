@@ -1,0 +1,57 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.10.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.rentalcar'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+	
+	// Cucumber
+	testCompile("info.cukes:cucumber-spring:1.2.3")
+	testCompile("info.cukes:cucumber-java:1.2.3")
+	testCompile("info.cukes:cucumber-junit:1.2.3")
+}
+
+// CUCUMBER
+configurations {
+	cucumberRuntime {
+		extendsFrom testRuntime
+	}
+}
+
+task cucumber() {
+	dependsOn assemble, compileTestJava
+	doLast {
+		javaexec {
+			
+			main = "cucumber.api.cli.Main"
+			classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+			args = ['--plugin', 'pretty', '--glue', 'com.rentalcar', 'src/test/resources']
+		}
+	}
+}
+
